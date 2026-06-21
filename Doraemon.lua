@@ -1,11 +1,11 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Khangdepzai hub",
+   Name = "Khangmods Hub",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "Khangdepzai hub - Blox fruits",
+   LoadingTitle = "Khangmods - Blox fruts",
    LoadingSubtitle = "by bokhangtrn29",
-   ShowText = "Rayfield", -- for mobile users to unhide Rayfield, change if you'd like
+   ShowText = "Bokhangtrn29", -- for mobile users to unhide Rayfield, change if you'd like
    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
@@ -39,69 +39,32 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local aTab = Window:CreateTab("MAIN", 4483362458) -- Title, Image
+local ATab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
 
-local Slider = aTab:CreateSlider({
-   Name = "Walkspeed",
+local Slider = ATab:CreateSlider({
+   Name = "SpeedWalk",
    Range = {0, 100},
    Increment = 10,
-   Suffix = "Bananas",
+   Suffix = "Speed",
    CurrentValue = 10,
    Flag = "Slider1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   -- The function that takes place when the slider changes
-   -- The variable (Value) is a number that correlates to the value the slider is currently at
-   end,
-})
+    local player = game.Players.LocalPlayer
 
-local bTab = Window:CreateTab("player", 4483362458) -- Title, Image
+local function setWalkSpeed(value)
+    local char = player.Character or player.CharacterAdded:Wait()
+    local humanoid = char:WaitForChild("Humanoid")
 
-local Slider = bTab:CreateSlider({
-   Name = "chưa bt",
-   Range = {0, 100},
-   Increment = 10,
-   Suffix = "Bananas",
-   CurrentValue = 10,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   -- The function that takes place when the slider changes
-   -- The variable (Value) is a number that correlates to the value the slider is currently at
-   end,
-})
+    humanoid.WalkSpeed = value
 
-local cTab = Window:CreateTab("tùy chỉnh", 4483362458) -- Title, Image
+    -- giữ tốc độ nếu game reset
+    humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+        if humanoid.WalkSpeed ~= value then
+            humanoid.WalkSpeed = value
+        end
+    end)
+end
 
-local Slider = cTab:CreateSlider({
-   Name = "chx bt",
-   Range = {0, 100},
-   Increment = 10,
-   Suffix = "Bananas",
-   CurrentValue = 10,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   -- The function that takes place when the slider changes
-   -- The variable (Value) is a number that correlates to the value the slider is currently at
-   end,
-})
-
-   local dTab = Window:CreateTab("Admin", 4483362458) -- Title, Image
-
-   local Button = dTab:CreateButton({
-   Name = "chx bt",
-   Callback = function()
-   -- The function that takes place when the button is pressed
-   end,
-})
-
-local Slider = dTab:CreateSlider({
-   Name = "chx bt",
-   Range = {0, 100},
-   Increment = 10,
-   Suffix = "Bananas",
-   CurrentValue = 10,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-   -- The function that takes place when the slider changes
-   -- The variable (Value) is a number that correlates to the value the slider is currently at
+setWalkSpeed(200)
    end,
 })
