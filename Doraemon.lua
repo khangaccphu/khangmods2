@@ -41,15 +41,10 @@ local Window = Rayfield:CreateWindow({
 
 local ATab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
 
-local Slider = ATab:CreateSlider({
+local Button = ATab:CreateButton({
    Name = "SpeedWalk",
-   Range = {0, 100},
-   Increment = 10,
-   Suffix = "Speed",
-   CurrentValue = 10,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-    local player = game.Players.LocalPlayer
+   Callback = function()
+      local player = game.Players.LocalPlayer
 
 local function setWalkSpeed(value)
     local char = player.Character or player.CharacterAdded:Wait()
